@@ -24,7 +24,7 @@ RUN pip3 install requests
 RUN pip3 install websockets
 COPY . .
 
-EXPOSE 8001
+EXPOSE 80
 
-CMD ["python3", "manage.py", "runserver", "0.0.0.0:8001"]
+CMD ["python3", "manage.py", "runserver", "0.0.0.0:80"]
 #CMD ["python3", "manage.py", "runserver"]
