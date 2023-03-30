@@ -1,22 +1,30 @@
-# Use an official Python runtime as a parent image
-FROM python:3.9
+FROM python:3.10
 
-# Set the working directory to /app
-WORKDIR /app
+ENV PYTHONUNBUFFERED=1
 
-# Copy the requirements file into the container
+WORKDIR /code
+
 COPY requirements.txt .
 
-
-# Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
-
+RUN pip3 install -r requirements.txt
+RUN pip3 install pytz
+RUN pip3 install python-dotenv
+RUN pip3 install pynamodb
+RUN pip3 install Django
+RUN pip3 install pipenv
+RUN pip3 install django-cors-headers
+RUN pip3 install django-storages
+RUN pip3 install djangorestframework
 RUN pip3 install djongo
-# Copy the current directory contents into the container at /app
-COPY . /app
+RUN pip3 install dnspython
+RUN pip3 install pymongo
+RUN pip3 install pynamodb
+RUN pip3 install python-dotenv
+RUN pip3 install requests
+RUN pip3 install websockets
+COPY . .
 
-# Expose port 8000 for the Django development server
-EXPOSE 8000
+EXPOSE 8001
 
-# Start the Django development server
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python3", "manage.py", "runserver", "0.0.0.0:8001"]
+#CMD ["python3", "manage.py", "runserver"]

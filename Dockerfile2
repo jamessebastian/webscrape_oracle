@@ -1,0 +1,42 @@
+FROM ubuntu:20.04
+
+# Set environment variables
+ENV TZ=UTC
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Update packages and install necessary dependencies
+RUN apt-get update && \
+    apt-get install -y python3 python3-pip && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the requirements file into the container and install the dependencies
+COPY requirements.txt /app/
+RUN pip3 install --no-cache-dir -r requirements.txt
+RUN pip3 install pytz
+RUN pip3 install python-dotenv
+RUN pip3 install pynamodb
+RUN pip3 install Django
+RUN pip3 install pipenv
+RUN pip3 install django-cors-headers
+RUN pip3 install django-storages
+RUN pip3 install djangorestframework
+RUN pip3 install djongo
+RUN pip3 install dnspython
+RUN pip3 install pymongo
+RUN pip3 install pynamodb
+RUN pip3 install python-dotenv
+RUN pip3 install requests
+RUN pip3 install websockets
+# Copy the Django app code into the container
+COPY . /app/
+
+# Expose port 8000 to the outside world
+EXPOSE 8000
+
+# Set the command to run when the container starts
+CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
+
