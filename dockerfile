@@ -22,6 +22,7 @@ RUN pip3 install pynamodb
 RUN pip3 install python-dotenv
 RUN pip3 install requests
 RUN pip3 install websockets
+
 COPY . .
 
 EXPOSE 80
