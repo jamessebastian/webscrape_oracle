@@ -45,8 +45,9 @@ def patchesApi(request,id=0):
 def disp(request):
     if request.method=='GET':
         form = UrlForm()
-        response=requests.get('http://127.0.0.1:8000/patch').json()
-        return render(request,'index4.html',{'response':response,'form':form})
+        # response=requests.get('http://127.0.0.1:8000/patch').json()
+        patches = Patches.objects.all()
+        return render(request,'index4.html',{'response':patches,'form':form})
 
     #load from url
     elif request.method=='POST':

@@ -12,7 +12,7 @@ TO SATRT PROJECT-
 
 2.python manage.py runserver
 
-3.http://127.0.0.1:8000/display -llanding page
+3.http://127.0.0.1:8000 -llanding page
 
 
 or if u use docker
