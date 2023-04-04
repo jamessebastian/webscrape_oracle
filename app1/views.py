@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
@@ -32,42 +32,34 @@ def patchesApi(request,id=0):
             return JsonResponse("Added Successfully",safe=False)
         return JsonResponse("Failed to Add",safe=False)
         
-
     elif request.method=='DELETE':
         Patches.objects.all().delete()
         return JsonResponse("delete complete",safe=False)
 
 
 
-
-
-
 def disp(request):
     if request.method=='GET':
         form = UrlForm()
-        # response=requests.get('http://127.0.0.1:8000/patch').json()
         patches = Patches.objects.all()
         return render(request,'index4.html',{'response':patches,'form':form})
 
     #load from url
     elif request.method=='POST':
-         # Get the data from the request
-         #Get the posted form
         form = UrlForm(request.POST)
         if form.is_valid():
-            # Do something with the form data
             url = form.cleaned_data['url']
             print(url)
         else:
             #url = "https://www.oracle.com/security-alerts/cpujan2023.html"
-            url = "dfg"
+            url = "err"
+
         try:
-            # send a request to the URL
+
             response = requests.get(url)
-                    # parse the HTML content of the page
             soup = BeautifulSoup(response.content, "html.parser")
             objs=[]
-            #table = soup.find('table',class_="otable-w2")# Find the table
+
             tables = soup.find_all("table")
             for i in range(2,17):
                 table = tables[i]
@@ -83,11 +75,9 @@ def disp(request):
                     objs.append(Patches(col0=data[0], col1=data[1],col2=data[2],col3=data[3], col4=data[4],col5=data[5],col6=data[6],
                     col7=data[7],col8=data[8],col9=data[9], col10=data[10],col11=data[11],col12=data[12],col13=data[13], col14=data[14]))
                     
-
             Patches.objects.bulk_create(objs) 
-            return JsonResponse("Added Successfully",safe=False)   
-            # b = Patches(Cve='Beatles Blog', Component='All the latest Beatles news.',BaseScore="4")
-            # b.save()
+        
+            return redirect('/')
 
         except:
             return JsonResponse("something went wrong.check url",safe=False)

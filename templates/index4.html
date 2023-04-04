@@ -2,18 +2,12 @@
 <html lang="en">
   {% load static %}
   <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-
     <title>Patch</title>
-
-    {% comment %}
-    <link rel="stylesheet" href="{% static 'app1/assets/css/style.css' %}" />
-    {% endcomment %}
     <link
       rel="stylesheet"
       href="{% static 'app1/assets/css/bootstrap.min.css' %}"
@@ -24,64 +18,92 @@
     />
   </head>
   <body>
+    {% comment %} https://www.oracle.com/security-alerts/cpuoct2022.html {% endcomment %}
+    {% comment %} https://www.oracle.com/security-alerts/cpujan2023.html {% endcomment %}
     <div class="container">
-      <br />
-      <form method="POST" class="form-group">
-        {% csrf_token %} {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">
-          Load data from url
-        </button>
-      </form>
-      {% comment %}
-      <p>https://www.oracle.com/security-alerts/cpujan2023.html</p>
-      {% endcomment %}
-      <h1>Oracle Patch management</h1>
-      <!-- in your HTML template -->
+      <div class="row">
+        <div class="col-lg">
+          <br/>
+          <br/>
+          <div class="card bg-light">
+            <div class="card-body">
+              <form method="POST" class="form-group">
+                {% csrf_token %} {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">
+                  LOAD DATA
+                </button>
+              </form>
+              <br/>
+              <button class="btn btn-danger" onclick="deleteSomething()">DELETE DATA</button >
+            </div>
+          </div>
+          
+          
+          <br/>
+          <br/>
+          <br/>
+          <h1><strong>ORACLE PATCH MANAGEMENT</strong></h1>
 
-      <table id="example" class="display table table-dark">
-        <thead>
-          <tr>
-            <th>CVE ID</th>
-            <th>Component</th>
-            <th scope="col">Package and/or Privilege Required</th>
-            <th scope="col">Protocol</th>
-            <th scope="col">Remote Exploit without Auth.?</th>
-            <th scope="col">Base Score</th>
-            <th scope="col">Attack Vector</th>
-            <th scope="col">Attack Complex</th>
-            <th scope="col">Privs Req'd</th>
-            <th scope="col">User Interact</th>
-            <th scope="col">Scope</th>
-            <th scope="col">Confid- entiality</th>
-            <th scope="col">Inte- grity</th>
-            <th scope="col">Avail- ability</th>
-            <th scope="col">Supported Versions Affected</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for i in response %}
-          <tr>
-            <td>{{i.col0}}</td>
-            <td>{{i.col1}}</td>
-            <td>{{i.col2}}</td>
-            <td>{{i.col3}}</td>
-            <td>{{i.col4}}</td>
-            <td>{{i.col5}}</td>
-            <td>{{i.col6}}</td>
-            <td>{{i.col7}}</td>
-            <td>{{i.col8}}</td>
-            <td>{{i.col9}}</td>
-            <td>{{i.col10}}</td>
-            <td>{{i.col11}}</td>
-            <td>{{i.col12}}</td>
-            <td>{{i.col13}}</td>
-            <td>{{i.col14}}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+          <table id="example" class="display table table-dark">
+            <thead>
+              <tr>
+                <th>CVE ID</th>
+                <th>Component</th>
+                <th scope="col">Package and/or Privilege Required</th>
+                <th scope="col">Protocol</th>
+                <th scope="col">Remote Exploit without Auth.?</th>
+                <th scope="col">Base Score</th>
+                <th scope="col">Attack Vector</th>
+                <th scope="col">Attack Complex</th>
+                <th scope="col">Privs Req'd</th>
+                <th scope="col">User Interact</th>
+                <th scope="col">Scope</th>
+                <th scope="col">Confid- entiality</th>
+                <th scope="col">Inte- grity</th>
+                <th scope="col">Avail- ability</th>
+                <th scope="col">Supported Versions Affected</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for i in response %}
+              <tr>
+                <td>{{i.col0}}</td>
+                <td>{{i.col1}}</td>
+                <td>{{i.col2}}</td>
+                <td>{{i.col3}}</td>
+                <td>{{i.col4}}</td>
+                <td>{{i.col5}}</td>
+                <td>{{i.col6}}</td>
+                <td>{{i.col7}}</td>
+                <td>{{i.col8}}</td>
+                <td>{{i.col9}}</td>
+                <td>{{i.col10}}</td>
+                <td>{{i.col11}}</td>
+                <td>{{i.col12}}</td>
+                <td>{{i.col13}}</td>
+                <td>{{i.col14}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
-
+    <script>
+      function deleteSomething() {
+        fetch('/patch', {
+          method: 'DELETE'
+        })
+        .then(response => {
+          if (response.ok) {
+            window.location.href = window.location.href;
+          } else {
+            console.error('Error deleting resource');
+          }
+        })
+        .catch(error => console.error('Error sending DELETE request:', error));
+      }
+    </script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="{% static 'app1/assets/js/bootstrap.bundle.min.js' %}"></script>
