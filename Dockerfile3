@@ -17,5 +17,7 @@ COPY . /app/
 # Expose port 80 to the outside world
 EXPOSE 80
 
+CMD ["python3", "manage.py", "migrate"]
+
 # Set the command to run when the container starts
 CMD ["python", "manage.py", "runserver", "0.0.0.0:80"]
