@@ -84,10 +84,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'CLIENT': {
-            "host":"mongodb+srv://james:james123@cluster0.4gevcwl.mongodb.net/?retryWrites=true&w=majority",
-            'username':'james',
-            'password':"james123",
-            "name":"mytestdb",
+            "host":"mongodb+srv://jamesseb4:9496111361@cluster0.vtrsetb.mongodb.net/?retryWrites=true&w=majority",#mongodb python connection string
+            "name":"db1", #dbname
             "authMechanism":"SCRAM-SHA-1"
         }
     }
